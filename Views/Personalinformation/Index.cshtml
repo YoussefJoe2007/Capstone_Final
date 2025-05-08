@@ -1,0 +1,261 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Users> signInManager
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Information</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f9fbfc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row; /* Changed to row */
+            padding: 2rem;
+        }
+        .form-section {
+            padding: 2rem;
+            flex: 1; /* Take up remaining space */
+        }
+        .back-button {
+            background-color: #e2e8f0;
+            color: #334155;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo img {
+            width: 75px;
+            margin-bottom: 0.5rem;
+        }
+        .logo span {
+            color: #475569;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .progress-bar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 0 2rem;
+        }
+        .progress-step {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .progress-step.active {
+            color: #4338ca;
+        }
+        .progress-line {
+            flex: 1;
+            height: 5px;
+            background-color: #e5e7eb;
+            position: relative;
+            top: -5px;
+        }
+        .progress-line-fill {
+            height: 5px;
+            background-color: #4338ca;
+            width: 33.33%;
+            position: absolute;
+            top: 0;
+        }
+        h1 {
+            color: #1e293b;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+            font-weight: 700;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            color: #475569;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"],
+        input[type="number"] {
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #334155;
+            background-color: #f8fafc;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #4338ca;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(67, 56, 202, 0.2);
+        }
+        .gender-group {
+            margin-top: 1rem;
+        }
+        .gender-label {
+            color: #475569;
+            margin-bottom: 0.5rem;
+        }
+        .gender-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .gender-btn {
+            background-color: #fff;
+            color: #4338ca;
+            border: 1px solid #4338ca;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .gender-btn:hover,
+        .gender-btn.selected {
+            background-color: #4338ca;
+            color: #fff;
+        }
+        .next-button {
+            background-color: #4338ca;
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            margin-top: 2rem;
+            width: fit-content;
+            align-self: flex-start;
+        }
+        .next-button:hover {
+            background-color: #312e81;
+        }
+        .side-image {
+            max-width: 40%;
+            align-self: center;
+            margin-left: 2rem; /* Add some spacing */
+        }
+        /* Responsive adjustments */
+        media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Revert to column on smaller screens */
+                width: 95%;
+                padding: 1rem;
+            }
+            .form-section {
+                padding: 1rem;
+            }
+            .side-image {
+                display: none; /* Hide image on small screens */
+            }
+        }
+    </style>
+    <script>
+        function selectGender(gender) {
+            document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById('gender-' + gender).classList.add('selected');
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <button class="back-button" onclick="location='/Patient/Index'">
+                &larr;
+            </button>
+            <div class="logo">
+                <img src="~/images/logo.png" alt="Taskheesy Logo" />
+                <span>Taskheesy</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    Personal information
+                </div>
+                <div class="progress-line">
+                    <div class="progress-line-fill"></div>
+                </div>
+                <div class="progress-step">
+                    Healthy Life style
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    Previous tests or x-rays
+                </div>
+            </div>
+            <h1>Personal information</h1>
+            <form>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" placeholder="First Name" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" placeholder="Last Name" />
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" placeholder="Age" />
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight</label>
+                    <input type="text" id="weight" placeholder="Weight" />
+                </div>
+                <div class="gender-group">
+                    <div class="gender-label">Gender</div>
+                    <div class="gender-buttons">
+                        <button type="button" class="gender-btn" id="gender-female" onclick="selectGender('female')">
+                            Female
+                        </button>
+                        <button type="button" class="gender-btn" id="gender-male" onclick="selectGender('male')">
+                            Male
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <button class="next-button" type="submit" onclick="location.href='/Healthylife/Index/'">
+                Next
+            </button>
+        </div>
+        <img src="~/images/card.png" alt="Info" class="side-image" />
+    </div>
+</body>
+</html>

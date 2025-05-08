@@ -1,0 +1,391 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Doctor Registration | Tashkheesy</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .logo {
+            width: 130px;
+            margin: 0 auto 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .form-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+            .row input,
+            .row select {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                font-size: 14px;
+            }
+
+            .row select {
+                appearance: none;
+            }
+
+        .phone-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flag {
+            width: 28px;
+            height: 18px;
+        }
+
+        .phone-input {
+            flex: 1;
+        }
+
+        .send-btn {
+            background-color: #5d96d3;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .send-btn:hover {
+                background-color: #3c7cc0;
+            }
+
+        .country-code {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            background-color: #fff;
+            flex: 0.7;
+            max-width: 120px;
+            appearance: none;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .phone-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+        
+
+        .custom-select-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .custom-select {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            position: relative;
+            min-width: 120px;
+            background-color: #fff;
+        }
+
+            .custom-select:hover {
+                background-color: #f5f5f5;
+            }
+
+        .flag-icon {
+            width: 24px;
+            height: 16px;
+            object-fit: cover;
+        }
+
+        .dropdown-options {
+            display: none;
+            position: absolute;
+            top: 110%;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            z-index: 99;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+            .dropdown-options li {
+                list-style: none;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                cursor: pointer;
+            }
+
+                .dropdown-options li:hover {
+                    background-color: #e9f0ff;
+                }
+
+        .phone-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .footer-icon {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="javascript:history.back()" class="back-button">←</a>
+
+    <div class="container">
+        <img src="~/images/logo.png" alt="Logo" class="logo" />
+        <h2>Are you a doctor</h2>
+
+        <form asp-action="SubmitDoctor" method="post" class="form-box">
+            <div class="row">
+                <input type="text" name="FirstName" placeholder="First Name" required />
+                <input type="text" name="LastName" placeholder="Last Name" required />
+            </div>
+
+            <div class="custom-select-wrapper">
+                <div class="custom-select" id="countryDropdown">
+                    <img src="https://flagcdn.com/eg.svg" class="flag-icon" id="selectedFlag" />
+                    <span id="selectedCode">+20</span>
+                </div>
+                <ul class="dropdown-options" id="dropdownOptions">
+                    <li data-code="+20" data-flag="eg"><img src="https://flagcdn.com/eg.svg" class="flag-icon"> Egypt (+20)</li>
+                    <li data-code="+966" data-flag="sa"><img src="https://flagcdn.com/sa.svg" class="flag-icon"> Saudi Arabia (+966)</li>
+                    <li data-code="+971" data-flag="ae"><img src="https://flagcdn.com/ae.svg" class="flag-icon"> UAE (+971)</li>
+                    <li data-code="+1" data-flag="us"><img src="https://flagcdn.com/us.svg" class="flag-icon"> USA (+1)</li>
+                    <li data-code="+44" data-flag="gb"><img src="https://flagcdn.com/gb.svg" class="flag-icon"> UK (+44)</li>
+                    <li data-code="+91" data-flag="in"><img src="https://flagcdn.com/in.svg" class="flag-icon"> India (+91)</li>
+                    <li data-code="+61" data-flag="au"><img src="https://flagcdn.com/au.svg" class="flag-icon"> Australia (+61)</li>
+                    <li data-code="+33" data-flag="fr"><img src="https://flagcdn.com/fr.svg" class="flag-icon"> France (+33)</li>
+                    <li data-code="+49" data-flag="de"><img src="https://flagcdn.com/de.svg" class="flag-icon"> Germany (+49)</li>
+                    <li data-code="+39" data-flag="it"><img src="https://flagcdn.com/it.svg" class="flag-icon"> Italy (+39)</li>
+                    <li data-code="+34" data-flag="es"><img src="https://flagcdn.com/es.svg" class="flag-icon"> Spain (+34)</li>
+                    <li data-code="+81" data-flag="jp"><img src="https://flagcdn.com/jp.svg" class="flag-icon"> Japan (+81)</li>
+                    <li data-code="+55" data-flag="br"><img src="https://flagcdn.com/br.svg" class="flag-icon"> Brazil (+55)</li>
+                    <li data-code="+27" data-flag="za"><img src="https://flagcdn.com/za.svg" class="flag-icon"> South Africa (+27)</li>
+                    <li data-code="+52" data-flag="mx"><img src="https://flagcdn.com/mx.svg" class="flag-icon"> Mexico (+52)</li>
+                    <li data-code="+7" data-flag="ru"><img src="https://flagcdn.com/ru.svg" class="flag-icon"> Russia (+7)</li>
+                    <li data-code="+62" data-flag="id"><img src="https://flagcdn.com/id.svg" class="flag-icon"> Indonesia (+62)</li>
+                    <li data-code="+82" data-flag="kr"><img src="https://flagcdn.com/kr.svg" class="flag-icon"> South Korea (+82)</li>
+                    <li data-code="+66" data-flag="th"><img src="https://flagcdn.com/th.svg" class="flag-icon"> Thailand (+66)</li>
+                    <li data-code="+254" data-flag="ke"><img src="https://flagcdn.com/ke.svg" class="flag-icon"> Kenya (+254)</li>
+                    <!-- Add more countries here -->
+                </ul>
+                <input type="hidden" name="CountryCode" id="countryCodeInput" value="+20" />
+                <input type="text" name="PhoneNumber" class="phone-input" placeholder="123456789" required />
+            </div>
+
+            <div class="row">
+                <select name="Speciality" required>
+                    <option value="">Select Speciality</option>
+                    <option value="Allergy and Immunology">Allergy and Immunology</option>
+                    <option value="Anesthesiology">Anesthesiology</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Dermatology">Dermatology</option>
+                    <option value="Emergency Medicine">Emergency Medicine</option>
+                    <option value="Family Medicine">Family Medicine</option>
+                    <option value="Internal Medicine">Internal Medicine</option>
+                    <option value="Neurology">Neurology</option>
+                    <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                    <option value="Pediatrics">Pediatrics</option>
+                    <option value="Psychiatry">Psychiatry</option>
+                    <option value="Radiology">Radiology</option>
+                    <option value="Surgery">Surgery</option>
+                    <option value="Urology">Urology</option>
+                    <option value="Endocrinology">Endocrinology</option>
+                    <option value="Gastroenterology">Gastroenterology</option>
+                    <option value="Ophthalmology">Ophthalmology</option>
+                    <option value="Orthopedic Surgery">Orthopedic Surgery</option>
+                    <option value="Pulmonology">Pulmonology</option>
+                    <option value="Rheumatology">Rheumatology</option>
+                    <option value="Nephrology">Nephrology</option>
+                    <option value="Hematology">Hematology</option>
+                    <option value="Plastic Surgery">Plastic Surgery</option>
+                    <option value="Palliative Medicine">Palliative Medicine</option>
+                    <option value="Geriatrics">Geriatrics</option>
+                    <option value="Sports Medicine">Sports Medicine</option>
+                    <!-- Add more specialties as needed -->
+                </select>
+
+               <select name="City" required>
+  <option value="">Select City</option>
+  <option value="Cairo">Cairo</option>
+  <option value="Alexandria">Alexandria</option>
+  <option value="Giza">Giza</option>
+  <option value="Port Said">Port Said</option>
+  <option value="Suez">Suez</option>
+  <option value="Luxor">Luxor</option>
+  <option value="Aswan">Aswan</option>
+  <option value="Tanta">Tanta</option>
+  <option value="Mansoura">Mansoura</option>
+  <option value="Zagazig">Zagazig</option>
+  <option value="Ismailia">Ismailia</option>
+  <option value="Fayoum">Fayoum</option>
+  <option value="Damanhur">Damanhur</option>
+  <option value="Beni Suef">Beni Suef</option>
+  <option value="Minya">Minya</option>
+  <option value="Sohag">Sohag</option>
+  <option value="Qena">Qena</option>
+  <option value="Assiut">Assiut</option>
+  <option value="Hurghada">Hurghada</option>
+  <option value="Sharm El Sheikh">Sharm El Sheikh</option>
+  <option value="Taba">Taba</option>
+  <option value="Shibin El Kom">Shibin El Kom</option>
+  <option value="Mersa Matruh">Mersa Matruh</option>
+  <option value="Ras Ghareb">Ras Ghareb</option>
+  <option value="El Mahalla El Kubra">El Mahalla El Kubra</option>
+  <option value="6th of October City">6th of October City</option>
+  <option value="New Cairo">New Cairo</option>
+  <!-- Add more cities as needed -->
+</select>
+
+            </div>
+
+            <button type="submit" class="send-btn" onclick="showSuccess()">Send</button>
+        </form>
+
+        <div id="successBox" style="display: none; text-align: center;">
+            <img src="https://img.icons8.com/color/96/ok--v1.png" width="120" />
+            <h2>Success!</h2>
+            <p>Great. Thank You Doctor</p>
+            <a href="/Home/Index" style="
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+">
+                Go to Home
+            </a>
+
+        </div>
+
+        <div class="footer">
+            <span class="footer-icon">©</span>
+            <span>Copyright 2025 Tashkheesy corporation</span>
+        </div>
+    </div>
+
+
+    <script>
+        const dropdown = document.getElementById("countryDropdown");
+        const options = document.getElementById("dropdownOptions");
+        const selectedFlag = document.getElementById("selectedFlag");
+        const selectedCode = document.getElementById("selectedCode");
+        const hiddenInput = document.getElementById("countryCodeInput");
+
+        dropdown.addEventListener("click", function (e) {
+            options.style.display = options.style.display === "block" ? "none" : "block";
+        });
+
+        options.addEventListener("click", function (e) {
+            if (e.target.tagName === "LI" || e.target.closest("li")) {
+                const li = e.target.closest("li");
+        const code = li.getAttribute("data-code");
+        const flag = li.getAttribute("data-flag");
+
+        selectedFlag.src = `https://flagcdn.com/${flag}.svg`;
+        selectedCode.textContent = code;
+        hiddenInput.value = code;
+        options.style.display = "none";
+            }
+        });
+
+        document.querySelector("form").addEventListener("submit", function (e) {
+            e.preventDefault(); // يمنع الإرسال التلقائي
+            if (this.checkValidity()) {
+                // لو البيانات كلها مظبوطة
+                document.querySelector("form").style.display = "none";
+                document.getElementById("successBox").style.display = "block";
+            } else {
+                // لو في بيانات ناقصة، يشغل التحقق من المتصفح
+                this.reportValidity();
+            }
+        });
+
+
+    </script>
+
+</body>
+</html>

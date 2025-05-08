@@ -1,0 +1,427 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book your appointment with the doctor now</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            background: #f5f6fa;
+            color: #222;
+        }
+
+        .main-wrapper {
+            display: flex;
+            min-height: 100vh;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .left-panel {
+            width: 340px;
+            background: #fff;
+            border-radius: 13px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin: 40px 30px 40px 0;
+            padding: 30px 28px 18px 28px;
+            display: flex;
+            flex-direction: column;
+            min-height: 530px;
+        }
+
+        .logo-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .back-btn {
+            width: 38px;
+            height: 38px;
+            background: #222;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 13px;
+            color: #fff;
+            font-size: 22px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 55px;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: bold;
+            margin-bottom: 14px;
+            color: #222;
+        }
+
+        .doctor-name {
+            color: #12a8e0;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .clinic-address {
+            font-size: 15px;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .info-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            margin-top: 0;
+        }
+
+        .info-icon-block {
+            text-align: center;
+            width: 32%;
+        }
+
+            .info-icon-block i {
+                color: #12a8e0;
+                font-size: 23px;
+                margin-bottom: 2px;
+            }
+
+        .info-label {
+            color: #888;
+            font-size: 13px;
+            margin: 2px 0 0 0;
+        }
+
+        .info-value {
+            font-size: 14px;
+            margin-top: 1px;
+            color: #222;
+        }
+
+        .on-appointment {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .book-btn {
+            background: #22b455;
+            color: #fff;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 11px 0;
+            width: 100%;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+            .book-btn:hover {
+                background: #179a43;
+            }
+
+        .show-dates {
+            color: #666;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 22px;
+            margin-top: 2px;
+        }
+
+            .show-dates span {
+                font-size: 13px;
+            }
+
+        .book-now-btn {
+            background: #e7ebf3;
+            color: #222;
+            border: none;
+            font-size: 16px;
+            border-radius: 6px;
+            padding: 15px 0;
+            width: 100%;
+            margin-top: 18px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+            .book-now-btn:hover {
+                background: #d2d9e6;
+            }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin-top: auto;
+            margin-bottom: 4px;
+        }
+
+        /* Calendar Panel */
+        .calendar-panel {
+            background: #fff;
+            border-radius: 13px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin: 40px 0 40px 0;
+            padding: 35px 35px 20px 35px;
+            min-width: 330px;
+            max-width: 410px;
+        }
+
+        .calendar-header {
+            font-size: 22px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .month-selector {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .month-arrow {
+            background-color: #f0f4f8;
+            color: #4a5568;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .month-name {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a202c;
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 18px;
+        }
+
+            .calendar th, .calendar td {
+                text-align: center;
+                padding: 7px;
+                font-size: 14px;
+                color: #4a5568;
+            }
+
+            .calendar th {
+                font-weight: 500;
+                color: #888;
+            }
+
+            .calendar td {
+                cursor: pointer;
+                transition: background-color 0.2s;
+                border-radius: 50%;
+            }
+
+                .calendar td:hover {
+                    background-color: #e7ebf3;
+                }
+
+            .calendar .selected {
+                background-color: #22b455;
+                color: #fff;
+                border-radius: 50%;
+            }
+
+        .time-slots {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+        }
+
+        .time-slot-button {
+            background-color: #22b455;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 0 2px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+            .time-slot-button:hover {
+                background-color: #179a43;
+            }
+
+        .time-slot-nav {
+            background-color: #f0f4f8;
+            color: #4a5568;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+      
+
+        {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .left-panel, .calendar-panel {
+            margin: 24px 0;
+            width: 95vw;
+            max-width: 500px;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <!-- Left Panel (Doctor Info) -->
+        <div class="left-panel">
+            <div class="logo-row">
+                <a href="#" class="back-btn">&#8592;</a>
+                <img src="~/images/Logo.png" alt="Tashkheesy" class="logo-img">
+            </div>
+            <div class="section-title">Booking information</div>
+            <div class="doctor-name">Dr. Omar Eldidi</div>
+            <div class="clinic-address">
+                <b>Nasr City</b> 10 And Elaziz Eissa (Almanhal school).
+            </div>
+            <div class="info-icons">
+                <div class="info-icon-block">
+                    <i>⏳</i>
+                    <div class="info-label">Waiting</div>
+                    <div class="info-value">10 minutes</div>
+                </div>
+                <div class="info-icon-block">
+                    <i>💵</i>
+                    <div class="info-label">Fees</div>
+                    <div class="info-value">500 EGP</div>
+                </div>
+                <div class="info-icon-block">
+                    <i>📞</i>
+                    <div class="info-label">Call Us</div>
+                    <div class="info-value">01201111344</div>
+                </div>
+            </div>
+            <div class="on-appointment">On Appointment</div>
+            <button class="book-btn">Book Tomorrow at 02:00 PM</button>
+            <a href="#" class="show-dates">Show other available dates <span>&#9660;</span></a>
+            <button class="book-now-btn">Book now</button>
+            <div class="footer">
+                &copy; Copyright 2025 Tashkheesy corporation
+            </div>
+        </div>
+        <!-- Calendar Panel (Appointment) -->
+        <div class="calendar-panel">
+            <div class="calendar-header">
+                Dr. Omar Eldidi
+            </div>
+            <div class="month-selector">
+                <button class="month-arrow">&#9664;</button>
+                <span class="month-name">April 2025</span>
+                <button class="month-arrow">&#9654;</button>
+            </div>
+            <table class="calendar">
+                <thead>
+                    <tr>
+                        <th>Su</th>
+                        <th>Mo</th>
+                        <th>Tu</th>
+                        <th>We</th>
+                        <th>Th</th>
+                        <th>Fr</th>
+                        <th>Sa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>14</td>
+                        <td class="selected">15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>19</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>21</td>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                        <td>25</td>
+                        <td>26</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>28</td>
+                        <td>29</td>
+                        <td>30</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="time-slots">
+                <button class="time-slot-nav">&#9664;</button>
+                <div>
+                    <button class="time-slot-button">02:00 PM</button>
+                    <button class="time-slot-button">02:10 PM</button>
+                    <button class="time-slot-button">02:20 PM</button>
+                    <button class="time-slot-button">02:30 PM</button>
+                </div>
+                <button class="time-slot-nav">&#9654;</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
